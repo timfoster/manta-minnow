@@ -47,10 +47,12 @@ NODE_PREBUILT_TAG	= zone
 NODE_PREBUILT_VERSION	:= v0.10.48
 NODE_PREBUILT_IMAGE	= fd2cc906-8938-11e3-beab-4359c665ac99
 
-include ./tools/mk/Makefile.defs
-include ./tools/mk/Makefile.node_prebuilt.defs
-include ./tools/mk/Makefile.node_deps.defs
-include ./tools/mk/Makefile.smf.defs
+# XXX timf comment out during eng development
+#REQUIRE_ENG := $(shell git submodule update --init deps/eng)
+include ./deps/eng/tools/mk/Makefile.defs
+TOP ?= $(error Unable to access eng.git submodule Makefiles.)
+include ./deps/eng/tools/mk/Makefile.node_prebuilt.defs
+include ./deps/eng/tools/mk/Makefile.smf.defs
 
 PATH			:= $(NODE_INSTALL)/bin:${PATH}
 
@@ -62,7 +64,7 @@ CLEAN_FILES += node_modules
 
 RELEASE_TARBALL         := $(NAME)-pkg-$(STAMP).tar.bz2
 ROOT                    := $(shell pwd)
-RELSTAGEDIR             := /tmp/$(STAMP)
+RELSTAGEDIR             := /tmp/$(NAME)-$(STAMP)
 
 #
 # Repo-specific targets
@@ -105,8 +107,7 @@ publish: release
 	cp $(ROOT)/$(RELEASE_TARBALL) $(BITS_DIR)/$(NAME)/$(RELEASE_TARBALL)
 
 
-include ./tools/mk/Makefile.deps
-include ./tools/mk/Makefile.node_prebuilt.targ
-include ./tools/mk/Makefile.node_deps.targ
-include ./tools/mk/Makefile.smf.targ
-include ./tools/mk/Makefile.targ
+include ./deps/eng/tools/mk/Makefile.deps
+include ./deps/eng/tools/mk/Makefile.node_prebuilt.targ
+include ./deps/eng/tools/mk/Makefile.smf.targ
+include ./deps/eng/tools/mk/Makefile.targ
