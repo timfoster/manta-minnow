@@ -47,10 +47,10 @@ NODE_PREBUILT_TAG	= zone
 NODE_PREBUILT_VERSION	:= v0.10.48
 NODE_PREBUILT_IMAGE	= fd2cc906-8938-11e3-beab-4359c665ac99
 
-# XXX timf comment out during eng development
-#REQUIRE_ENG := $(shell git submodule update --init deps/eng)
+REQUIRE_ENG := $(shell git submodule update --init deps/eng)
 include ./deps/eng/tools/mk/Makefile.defs
 TOP ?= $(error Unable to access eng.git submodule Makefiles.)
+
 include ./deps/eng/tools/mk/Makefile.node_prebuilt.defs
 include ./deps/eng/tools/mk/Makefile.smf.defs
 
