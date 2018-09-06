@@ -62,7 +62,7 @@ CLEAN_FILES += node_modules
 # MG Variables
 #
 
-RELEASE_TARBALL         := $(NAME)-pkg-$(STAMP).tar.bz2
+RELEASE_TARBALL         := $(NAME)-pkg-$(STAMP).tar.gz
 ROOT                    := $(shell pwd)
 RELSTAGEDIR             := /tmp/$(NAME)-$(STAMP)
 
@@ -93,7 +93,7 @@ release: all docs $(SMF_MANIFESTS)
 		$(ROOT)/sapi_manifests \
 		$(ROOT)/smf \
 		$(RELSTAGEDIR)/root/opt/smartdc/$(NAME)
-	(cd $(RELSTAGEDIR) && $(TAR) -jcf $(ROOT)/$(RELEASE_TARBALL) root site)
+	(cd $(RELSTAGEDIR) && $(TAR) -I pigz -cf $(ROOT)/$(RELEASE_TARBALL) root site)
 	@rm -rf $(RELSTAGEDIR)
 
 
